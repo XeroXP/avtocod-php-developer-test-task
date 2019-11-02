@@ -69,7 +69,7 @@ class RegisterController extends Controller
             return redirect()->route('auth.showRegisterForm', $return_data)->withErrors($validator);
         }
         $this->create($data);
-        return redirect()->route('index');
+        return redirect()->route('auth.showLoginForm')->with('status', 'Вы успешно зарегистрировались, теперь можете выполнить вход');
     }
 
     /**

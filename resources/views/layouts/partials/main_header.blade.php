@@ -10,11 +10,21 @@
             </li>
         </ul>
         <div class="navbar-right">
-            <ul class="nav navbar-nav">
-                <li {{ Route::currentRouteName()=='auth.showRegisterForm' ? 'class=active' : '' }}>
-                    <a href="{{route('auth.showRegisterForm')}}">Регистрация</a>
-                </li>
-            </ul>
+            @if(!Auth::check())
+                <ul class="nav navbar-nav">
+                    <li {{ Route::currentRouteName()=='auth.showLoginForm' ? 'class=active' : '' }}>
+                        <a href="{{route('auth.showLoginForm')}}">Авторизация</a>
+                    </li>
+                    <li {{ Route::currentRouteName()=='auth.showRegisterForm' ? 'class=active' : '' }}>
+                        <a href="{{route('auth.showRegisterForm')}}">Регистрация</a>
+                    </li>
+                </ul>
+            @else
+                <p class="navbar-text"><span class="glyphicon glyphicon-user"></span> {{Auth::user()->name}}</p>
+                <ul class="nav navbar-nav">
+                    <li><a href="{{route('auth.logout')}}"><span class="glyphicon glyphicon-log-out"></span> Выход</a></li>
+                </ul>
+            @endif
         </div>
     </div>
 </nav>
