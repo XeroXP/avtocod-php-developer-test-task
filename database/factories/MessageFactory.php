@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 
@@ -15,11 +16,9 @@ use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 */
 
 /** @var EloquentFactory $factory */
-$factory->define(\App\Models\User::class, function (Faker $faker) {
+$factory->define(\App\Models\Message::class, function (Faker $faker) {
     return [
-        'name' => $faker->unique()->firstName,
-        'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-        'remember_token' => str_random(10),
+	'user_id' => User::all()->random()->id,
+        'content' => $faker->text,
     ];
 });

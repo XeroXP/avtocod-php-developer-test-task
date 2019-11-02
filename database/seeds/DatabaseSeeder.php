@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -13,5 +14,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         factory(User::class)->times(\mt_rand(1, 5))->create();
+	factory(Message::class)->times(\mt_rand(5, 10))->create();
     }
 }

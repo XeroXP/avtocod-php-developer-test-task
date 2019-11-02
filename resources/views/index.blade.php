@@ -33,9 +33,9 @@
                 <div style="flex: 0 0 auto;width: auto;max-width: none;padding-right: 15px;padding-left: 15px;">
                     <img src="https://www.gravatar.com/avatar/{{md5($message->user->email)}}" />
                 </div>
-                <div class="col-md-11 col-xs-9">
+                <div class="col-md-11 col-xs-11">
                     <div class="row" style="display:flex;">
-                        <div class="col-md-11 col-xs-9">
+                        <div class="col-md-11 col-xs-11">
                             <p>
                                 <strong>{{$message->user->name}}:</strong>
                             </p>
