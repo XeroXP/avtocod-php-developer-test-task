@@ -8,7 +8,9 @@
 
 @include('layouts.partials.main_header')
 
-@yield('main_content')
+<div class="container">
+    @yield('main_content')
+</div>
 
 @section('scripts')
     @include('layouts.partials.scripts')

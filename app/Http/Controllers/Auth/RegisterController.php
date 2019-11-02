@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -28,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -41,6 +42,37 @@ class RegisterController extends Controller
     }
 
     /**
+     * Функция выводит представление для стрницы регистрации
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
+    public function index()
+    {
+        return view('auth.register');
+    }
+
+    /**
+     * Регистрация пользователя
+	 *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function register(Request $request)
+    {
+        $data = $request->all();
+        $validator = $this->validator($data);
+        if ($validator->fails()) {
+            $return_data = [
+                'name' => $data['name'],
+                'email' => $data['email'],
+            ];
+            return redirect()->route('auth.showRegisterForm', $return_data)->withErrors($validator);
+        }
+        $this->create($data);
+        return redirect()->route('index');
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -49,9 +81,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|min:8|regex:/^([a-zA-z0-9]+)$/u',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6|confirmed|regex:/^([a-zA-z0-9]+)$/u',
+        ], [
+            'name.regex' => 'Поле :attribute может содержать только латинские буквы в любом регистре и цифры',
+            'password.regex' => 'Поле :attribute может содержать только латинские буквы в любом регистре и цифры',
         ]);
     }
 
