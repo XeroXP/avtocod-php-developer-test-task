@@ -19,3 +19,5 @@ Route::post('registration', 'Auth\RegisterController@register')->name('auth.regi
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('auth.showLoginForm');
 Route::post('login','Auth\LoginController@login')->name('auth.login');
 Route::get('logout', 'Auth\LoginController@logout')->name('auth.logout');
+Route::post('add_message', 'MessagesController@add')->name('messages.add');
+Route::post('remove_message', 'MessagesController@remove')->name('messages.remove');
